@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Melanoma Detection</string>
+    <string name="please_choose_your_existing_image_or_take_a_new_one">Please choose your existing image or take a new one</string>
 </resources>
