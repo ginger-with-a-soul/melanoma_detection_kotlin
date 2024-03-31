@@ -25,10 +25,7 @@ class MainActivity : ComponentActivity() {
         val view = binding.root
         setContentView(view)
 
-        binding.cameraButton.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(v: View?) {
-                requestCameraPermission()
-            }})
+        binding.cameraButton.setOnClickListener { requestCameraPermission() }
 
     }
 
