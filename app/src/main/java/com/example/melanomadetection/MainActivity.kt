@@ -50,6 +50,9 @@ class MainActivity : ComponentActivity() {
             )
 
         }
+        else {
+            openCamera()
+        }
     }
 
     @Deprecated("Deprecated in Java")
@@ -72,10 +75,12 @@ class MainActivity : ComponentActivity() {
 
     private fun openCamera() {
 
+        logger.debug("Greetings")
+
         val cameraIntent: Intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
         try {
-            startActivity(intent)
+            startActivity(cameraIntent)
         } catch (ex: ActivityNotFoundException) {
             Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show()
         }

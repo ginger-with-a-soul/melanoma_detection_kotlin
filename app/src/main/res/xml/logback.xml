@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
     <property name="LOG_WARN" value="warnings" />
-    <property name="LOG_DIR" value="/var/logs/application/" />
+    <property name="LOG_DIR" value="${context:getExternalFilesDir(null)}" />
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} %green([%thread]) %highlight(%-5level) (%logger{50}.%M\(%line\)) - (%msg%n)</pattern>
         </encoder>
     </appender>
 
-    <appender name="WARN_FILE" class="ch.qos.logback.core.FileAppender">
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <file>${LOG_DIR}/${LOG_WARN}.log</file>
         <append>false</append>
         <encoder>
-            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} %green([%thread]) %highlight(%-5level) (%logger{50}.%M\(%line\)) - (%msg%n)</pattern>
         </encoder>
     </appender>
 
     <!-- loggers are additive: this will log to both file nad stdout (from parent) -->
-    <logger name="com.example.melanomadetection" level="DEBUG" additivity="false" >
+    <logger name="com.example.melanomadetection" level="debug" additivity="false" >
         <appender-ref ref="FILE" />
     </logger>
 
     <root level="debug">
         <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
     </root>
 </configuration>
