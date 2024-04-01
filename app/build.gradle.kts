@@ -7,6 +7,13 @@ android {
     namespace = "com.example.melanomadetection"
     compileSdk = 34
 
+    packaging {
+        resources {
+            excludes += "/META-INF/INDEX.LIST"
+
+        }
+    }
+
     buildFeatures {
         viewBinding = true
     }

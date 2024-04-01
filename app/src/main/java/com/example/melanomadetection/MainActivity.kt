@@ -2,7 +2,6 @@ package com.example.melanomadetection
 
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.core.app.ActivityCompat
 import com.example.melanomadetection.databinding.MainActivityBinding
@@ -12,11 +11,17 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.provider.MediaStore
 import android.widget.Toast
+import org.slf4j.LoggerFactory
 
 class MainActivity : ComponentActivity() {
 
+    companion object {
+        private val logger = LoggerFactory.getLogger("com.example.melanomadetection")
+    }
+
+
     private lateinit var binding: MainActivityBinding
-    private val CAMERA_PERMISSION_REQUEST_CODE = 100
+    private val CAMERA_PERMISSION_REQUEST_CODE: Int = 100
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,13 +36,15 @@ class MainActivity : ComponentActivity() {
 
     private fun requestCameraPermission() {
 
-        val cameraPermission: Int = ContextCompat.checkSelfPermission(this@MainActivity, Manifest.permission.CAMERA)
+        logger.debug("Accessing: ${Thread.currentThread().stackTrace[2].methodName} function")
+        val cameraPermission: Int = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
 
         if (cameraPermission != PackageManager.PERMISSION_GRANTED)
         {
+            logger.debug("Camera permission not granted. Asking for it now...")
             // a callback function 'onRequestPermissionsResults' gets called to handle the result
             ActivityCompat.requestPermissions(
-                this@MainActivity,
+                this,
                 arrayOf(Manifest.permission.CAMERA),
                 CAMERA_PERMISSION_REQUEST_CODE
             )
